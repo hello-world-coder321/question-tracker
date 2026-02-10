@@ -164,7 +164,6 @@ export default function Sheet() {
             </div>
           </div>
 
-          {/* LIGHT COLOR QUOTE BOX */}
           <div className={`mb-8 md:mb-10 p-4 md:p-6 rounded-2xl border-l-4 leading-relaxed transition-all duration-500 shadow-sm ${
             darkMode 
               ? 'bg-zinc-900/40 text-zinc-400 border-zinc-700' 
@@ -175,22 +174,21 @@ export default function Sheet() {
             </p>
           </div>
           
-          {/* REFINED PROGRESS BAR */}
           <div className="w-full h-2.5 md:h-3 bg-slate-200/50 dark:bg-zinc-900 rounded-full overflow-hidden relative flex gap-0.5">
-            {[easy, medium, hard].map((stat, idx) => {
-              const colors = ['emerald', 'amber', 'rose'];
-              return (
-                <div key={idx} className="h-full relative group cursor-help" style={{ width: `${stat.segmentWidth}%` }}>
-                  <div className={`absolute inset-0 bg-${colors[idx]}-500/10`} />
-                  <div className={`h-full bg-${colors[idx]}-500 transition-all duration-1000 ease-out`} style={{ width: `${stat.fillProgress}%` }} />
-                  
-                  {/* Tooltip */}
-                  <div className={`absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 bg-slate-900 text-white text-[9px] font-black rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-50`}>
-                    {stat.remaining} {['EASY', 'MEDIUM', 'HARD'][idx]} LEFT
-                  </div>
+            {[
+              { stats: easy, color: 'bg-emerald-500', track: 'bg-emerald-500/10', label: 'EASY' },
+              { stats: medium, color: 'bg-amber-500', track: 'bg-amber-500/10', label: 'MEDIUM' },
+              { stats: hard, color: 'bg-rose-500', track: 'bg-rose-500/10', label: 'HARD' }
+            ].map((config, idx) => (
+              <div key={idx} className="h-full relative group cursor-help" style={{ width: `${config.stats.segmentWidth}%` }}>
+                <div className={`absolute inset-0 ${config.track}`} />
+                <div className={`h-full ${config.color} transition-all duration-1000 ease-out`} style={{ width: `${config.stats.fillProgress}%` }} />
+                
+                <div className={`absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 bg-slate-900 text-white text-[9px] font-black rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-50`}>
+                  {config.stats.remaining} {config.label} LEFT
                 </div>
-              );
-            })}
+              </div>
+            ))}
           </div>
 
           <div className="flex flex-col sm:flex-row justify-between items-center mt-4 px-1 text-[10px] font-bold uppercase tracking-widest gap-2 sm:gap-0">
