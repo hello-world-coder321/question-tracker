@@ -2,6 +2,7 @@
 
 An interactive, high-performance progress tracker designed specifically for the **Strivers A2Z DSA Sheet**. This project was developed as an internship assignment to demonstrate advanced React state management, performance optimization, and UI/UX improvements over existing platforms.
 
+**[Live Demo](https://hello-world-coder321.github.io/question-tracker/)**
 ---
 
 ###  The "Internship Challenge": Solving Platform Gaps
