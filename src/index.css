@@ -5,3 +5,32 @@ body {
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;
 }
+
+/* --- Custom Responsive Logic for SDE Tracker --- */
+
+/* 1. Hide Notes logo if width is less than 762px */
+@media (max-width: 762px) {
+  .responsive-hide-notes {
+    display: none !important;
+  }
+}
+
+/* 2. Hide YouTube sign if width is less than 652px */
+@media (max-width: 652px) {
+  .responsive-hide-youtube {
+    display: none !important;
+  }
+}
+
+/* 3. Hide Difficulty tag if width is less than 505px */
+@media (max-width: 505px) {
+  .responsive-hide-difficulty {
+    display: none !important;
+  }
+}
+
+/* Utility to ensure question names take up remaining space */
+.question-title-container {
+  min-width: 0;
+  flex: 1 1 0%;
+}

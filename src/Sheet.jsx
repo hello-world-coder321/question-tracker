@@ -107,7 +107,7 @@ export default function Sheet() {
   const globalPercent = totalGlobal > 0 ? Math.round((allQuestions.filter(q => q.isSolved).length / totalGlobal) * 100) : 0;
 
   return (
-    <div className={`min-h-screen transition-colors duration-500 ${darkMode ? 'bg-zinc-950 text-white' : 'bg-slate-50 text-slate-900'} py-12 px-4 relative`}>
+    <div className={`min-h-screen transition-colors duration-500 ${darkMode ? 'bg-zinc-950 text-white' : 'bg-slate-50 text-slate-900'} py-6 md:py-12 px-3 md:px-4 relative`}>
       
       <ActionModal 
         isOpen={isTopicModalOpen} onClose={() => setIsTopicModalOpen(false)}
@@ -117,20 +117,20 @@ export default function Sheet() {
       />
 
       <div className="max-w-4xl mx-auto">
-        <header className="mb-10">
+        <header className="mb-8 md:mb-10">
           <div className="flex flex-col md:flex-row justify-between items-center gap-6 mb-8">
-            <div className="flex items-center gap-3 shrink-0">
-              <Layout className="text-blue-600" size={32} />
-              <h1 className="text-3xl font-black tracking-tight uppercase">SDE Tracker</h1>
+            <div className="flex items-center gap-3 shrink-0 self-start md:self-center">
+              <Layout className="text-blue-600" size={28} md:size={32} />
+              <h1 className="text-xl md:text-3xl font-black tracking-tight uppercase">SDE Tracker</h1>
             </div>
 
-            <div className="flex flex-1 items-center gap-3 w-full justify-end">
-              <div className="relative flex-1 max-w-sm group">
+            <div className="flex flex-col md:flex-row flex-1 items-center gap-3 w-full">
+              <div className="relative w-full md:flex-1 md:max-w-sm group">
                 <Search className="absolute left-3 top-2.5 w-4 h-4 opacity-40 group-focus-within:text-blue-500 transition-all" />
                 <input 
                   type="text" placeholder="Search A2Z questions..."
                   value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)}
-                  className={`w-full pl-10 pr-10 py-2.5 rounded-xl border-2 outline-none text-xs font-bold transition-all ${
+                  className={`w-full pl-10 pr-10 py-2 md:py-2.5 rounded-xl border-2 outline-none text-xs font-bold transition-all ${
                     darkMode ? 'bg-zinc-900 border-zinc-800 focus:border-blue-500 text-white' : 'bg-white border-slate-200 focus:border-blue-600 text-slate-900'
                   }`}
                 />
@@ -141,41 +141,37 @@ export default function Sheet() {
                 )}
               </div>
 
-              <div className="flex gap-2">
-                <button onClick={() => setAllCollapsed(!allCollapsed)} className={`flex items-center gap-2 px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all active:scale-95 ${darkMode ? 'bg-zinc-900 text-zinc-400 hover:text-white' : 'bg-white text-slate-500 hover:text-blue-600 shadow-sm'}`}>
+              <div className="flex gap-2 w-full md:w-auto">
+                <button onClick={() => setAllCollapsed(!allCollapsed)} className={`flex-1 md:flex-none flex items-center justify-center gap-2 px-3 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all active:scale-95 ${darkMode ? 'bg-zinc-900 text-zinc-400 hover:text-white' : 'bg-white text-slate-500 hover:text-blue-600 shadow-sm'}`}>
                   {allCollapsed ? <ChevronsDown size={14}/> : <ChevronsUp size={14}/>}
-                  {allCollapsed ? 'Expand All' : 'Collapse All'}
+                  <span className="md:inline">{allCollapsed ? 'Expand' : 'Collapse'}</span>
                 </button>
-                <button onClick={toggleDarkMode} className="p-3 rounded-xl bg-zinc-800 text-yellow-400 shadow-lg transition-transform active:scale-95">
-                  {darkMode ? <Sun size={20} /> : <Moon size={20} />}
+                <button onClick={toggleDarkMode} className="p-2.5 md:p-3 rounded-xl bg-zinc-800 text-yellow-400 shadow-lg transition-transform active:scale-95">
+                  {darkMode ? <Sun size={18} /> : <Moon size={18} />}
                 </button>
-                <button onClick={() => setIsTopicModalOpen(true)} className="bg-blue-600 text-white px-6 py-3 rounded-xl font-bold active:scale-95 transition-transform">
+                <button onClick={() => setIsTopicModalOpen(true)} className="bg-blue-600 text-white px-4 md:px-6 py-2.5 md:py-3 rounded-xl font-bold active:scale-95 transition-transform flex items-center justify-center">
                   <PlusCircle size={20}/>
                 </button>
               </div>
             </div>
           </div>
 
-          {/* New Course Description Section */}
-          <div className={`mb-10 p-6 rounded-2xl border-l-4 border-blue-600 leading-relaxed transition-all duration-500 shadow-sm ${
+          <div className={`mb-8 md:mb-10 p-4 md:p-6 rounded-2xl border-l-4 border-blue-600 leading-relaxed transition-all duration-500 shadow-sm ${
             darkMode ? 'bg-zinc-900/50 text-zinc-400 border-blue-500/50' : 'bg-blue-50/50 text-slate-600'
           }`}>
-            <p className="text-sm font-medium italic">
-              "This course is made for people who want to learn DSA from A to Z for free in a well-organized and structured manner. 
-              The lecture quality is better than what you get in paid courses, the only thing we don’t provide is doubt support, 
-              but trust me our YouTube video comments resolve that as well, we have a wonderful community of 250K+ people 
-              who engage in all of the videos."
+            <p className="text-xs md:text-sm font-medium italic">
+              "This course is made for people who want to learn DSA from A to Z for free in a well-organized and structured manner..."
             </p>
           </div>
           
-          <div className="w-full h-4 bg-slate-200 dark:bg-zinc-800 rounded-full overflow-visible shadow-inner relative flex gap-0.5">
+          <div className="w-full h-3 md:h-4 bg-slate-200 dark:bg-zinc-800 rounded-full overflow-visible shadow-inner relative flex gap-0.5">
             {[easy, medium, hard].map((stat, idx) => {
               const colors = ['emerald', 'amber', 'rose'];
               return (
                 <div key={idx} className={`h-full relative overflow-visible group cursor-help ${idx === 0 ? 'first:rounded-l-full' : ''} ${idx === 2 ? 'last:rounded-r-full' : ''}`} style={{ width: `${stat.segmentWidth}%` }}>
                   <div className={`absolute inset-0 bg-${colors[idx]}-500/10`} />
                   <div className={`h-full bg-${colors[idx]}-500 transition-all duration-700 ease-out ${idx === 0 ? 'first:rounded-l-full' : ''} ${idx === 2 ? 'last:rounded-r-full' : ''}`} style={{ width: `${stat.fillProgress}%` }} />
-                  <div className={`absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 bg-${colors[idx]}-600 text-white text-[10px] font-black rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-50 shadow-xl`}>
+                  <div className={`absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 bg-${colors[idx]}-600 text-white text-[9px] md:text-[10px] font-black rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-50 shadow-xl`}>
                     {stat.remaining} {['EASY', 'MEDIUM', 'HARD'][idx]} LEFT
                     <div className={`absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-${colors[idx]}-600`} />
                   </div>
@@ -184,19 +180,19 @@ export default function Sheet() {
             })}
           </div>
 
-          <div className="flex justify-between mt-3 px-1 text-[10px] font-bold uppercase tracking-widest">
-            <div className="flex gap-4">
-              <span className="text-emerald-500">Easy: {easy.solved}/{easy.total}</span>
-              <span className="text-amber-500">Medium: {medium.solved}/{medium.total}</span>
-              <span className="text-rose-500">Hard: {hard.solved}/{hard.total}</span>
+          <div className="flex flex-col sm:flex-row justify-between items-center mt-3 px-1 text-[9px] md:text-[10px] font-bold uppercase tracking-widest gap-2 sm:gap-0">
+            <div className="flex gap-3 md:gap-4">
+              <span className="text-emerald-500">E: {easy.solved}/{easy.total}</span>
+              <span className="text-amber-500">M: {medium.solved}/{medium.total}</span>
+              <span className="text-rose-500">H: {hard.solved}/{hard.total}</span>
             </div>
-            <span className="text-blue-600 font-black">{globalPercent}% Complete</span>
+            <span className="text-blue-600 font-black">{globalPercent}% COMPLETED</span>
           </div>
         </header>
 
         <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={(e) => e.over && moveItem(e.active, e.over)}>
           <SortableContext items={filteredTopics.map(t => t.id)} strategy={verticalListSortingStrategy}>
-            <div className="space-y-6">
+            <div className="space-y-4 md:space-y-6">
               {filteredTopics.map(topic => (
                 <Topic 
                   key={topic.id} topic={topic} 
@@ -204,29 +200,29 @@ export default function Sheet() {
                 />
               ))}
               {filteredTopics.length === 0 && searchQuery.length > 0 && (
-                <div className="text-center py-20 opacity-40 font-bold uppercase tracking-widest text-sm">No questions found for "{searchQuery}"</div>
+                <div className="text-center py-20 opacity-40 font-bold uppercase tracking-widest text-sm">No results found</div>
               )}
             </div>
           </SortableContext>
         </DndContext>
       </div>
 
-      <div className="fixed bottom-8 right-8 flex flex-col gap-4 z-50">
+      <div className="fixed bottom-4 right-4 md:bottom-8 md:right-8 flex flex-col gap-3 md:gap-4 z-50">
         <button
           onClick={undo}
-          className={`p-4 rounded-2xl shadow-2xl transition-all duration-300 border-2 active:scale-90 flex items-center gap-2 group ${history.length === 0 ? 'opacity-0 pointer-events-none scale-90' : 'opacity-100 scale-100'} ${darkMode ? 'bg-zinc-900 border-zinc-800 text-amber-500 hover:border-amber-500' : 'bg-white border-slate-200 text-amber-600 hover:bg-amber-600 hover:text-white'}`}
+          className={`p-3 md:p-4 rounded-2xl shadow-2xl transition-all duration-300 border-2 active:scale-90 flex items-center gap-2 group ${history.length === 0 ? 'opacity-0 pointer-events-none scale-90' : 'opacity-100 scale-100'} ${darkMode ? 'bg-zinc-900 border-zinc-800 text-amber-500 hover:border-amber-500' : 'bg-white border-slate-200 text-amber-600 hover:bg-amber-600 hover:text-white'}`}
           title="Undo Last Move (Ctrl+Z)"
         >
-          <RotateCcw size={24} strokeWidth={3} />
-          <span className="max-w-0 overflow-hidden group-hover:max-w-xs transition-all duration-300 text-[10px] font-black uppercase tracking-widest whitespace-nowrap">Undo Last Move</span>
+          <RotateCcw size={20} md:size={24} strokeWidth={3} />
+          <span className="hidden md:block max-w-0 overflow-hidden group-hover:max-w-xs transition-all duration-300 text-[10px] font-black uppercase tracking-widest whitespace-nowrap">Undo</span>
         </button>
 
         <button
           onClick={scrollToTop}
-          className={`p-4 rounded-2xl shadow-2xl transition-all duration-300 border-2 active:scale-90 ${showTopBtn ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0 pointer-events-none'} ${darkMode ? 'bg-zinc-900 border-zinc-800 text-blue-500 hover:text-white hover:border-blue-500' : 'bg-white border-slate-200 text-blue-600 hover:bg-blue-600 hover:text-white'}`}
+          className={`p-3 md:p-4 rounded-2xl shadow-2xl transition-all duration-300 border-2 active:scale-90 ${showTopBtn ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0 pointer-events-none'} ${darkMode ? 'bg-zinc-900 border-zinc-800 text-blue-500 hover:text-white hover:border-blue-500' : 'bg-white border-slate-200 text-blue-600 hover:bg-blue-600 hover:text-white'}`}
           title="Back to Top"
         >
-          <ArrowUp size={24} strokeWidth={3} />
+          <ArrowUp size={20} md:size={24} strokeWidth={3} />
         </button>
       </div>
     </div>
