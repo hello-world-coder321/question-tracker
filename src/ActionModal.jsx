@@ -103,6 +103,7 @@ export default function ActionModal({ isOpen, onClose, onSubmit, title, darkMode
                   <option value="Easy">Easy</option>
                   <option value="Medium">Medium</option>
                   <option value="Hard">Hard</option>
+                  <option value="Basic">Basic</option>
                 </select>
               </div>
 

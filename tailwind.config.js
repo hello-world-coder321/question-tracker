@@ -4,8 +4,9 @@ export default {
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
-  // This tells Tailwind to keep these classes even if it doesn't "see" them in your HTML
   safelist: [
+    'bg-slate-500',      // New Basic color
+    'bg-slate-500/10',   // New Basic track
     'bg-emerald-500',
     'bg-amber-500',
     'bg-rose-500',

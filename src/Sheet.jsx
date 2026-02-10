@@ -109,6 +109,7 @@ export default function Sheet() {
     };
   };
 
+  const basic = getDifficultyStats("Basic");
   const easy = getDifficultyStats("Easy");
   const medium = getDifficultyStats("Medium");
   const hard = getDifficultyStats("Hard");
@@ -176,6 +177,7 @@ export default function Sheet() {
           
           <div className="w-full h-2.5 md:h-3 bg-slate-200/50 dark:bg-zinc-900 rounded-full overflow-hidden relative flex gap-0.5">
             {[
+              { stats: basic, color: 'bg-slate-500', track: 'bg-slate-500/10', label: 'BASIC' },
               { stats: easy, color: 'bg-emerald-500', track: 'bg-emerald-500/10', label: 'EASY' },
               { stats: medium, color: 'bg-amber-500', track: 'bg-amber-500/10', label: 'MEDIUM' },
               { stats: hard, color: 'bg-rose-500', track: 'bg-rose-500/10', label: 'HARD' }
@@ -193,9 +195,10 @@ export default function Sheet() {
 
           <div className="flex flex-col sm:flex-row justify-between items-center mt-4 px-1 text-[10px] font-bold uppercase tracking-widest gap-2 sm:gap-0">
             <div className="flex gap-4 md:gap-6">
-              <span className={`${darkMode ? 'text-emerald-500/80' : 'text-emerald-600'}`}>E: {easy.solved}/{easy.total}</span>
-              <span className={`${darkMode ? 'text-amber-500/80' : 'text-amber-600'}`}>M: {medium.solved}/{medium.total}</span>
-              <span className={`${darkMode ? 'text-rose-500/80' : 'text-rose-600'}`}>H: {hard.solved}/{hard.total}</span>
+              <span className={darkMode ? 'text-slate-400' : 'text-slate-600'}>B: {basic.solved}/{basic.total}</span>
+              <span className={darkMode ? 'text-emerald-500/80' : 'text-emerald-600'}>E: {easy.solved}/{easy.total}</span>
+              <span className={darkMode ? 'text-amber-500/80' : 'text-amber-600'}>M: {medium.solved}/{medium.total}</span>
+              <span className={darkMode ? 'text-rose-500/80' : 'text-rose-600'}>H: {hard.solved}/{hard.total}</span>
             </div>
             <span className="text-blue-600 font-black px-3 py-1 bg-blue-50 dark:bg-blue-900/20 rounded-lg">{globalPercent}% COMPLETED</span>
           </div>
