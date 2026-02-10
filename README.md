@@ -1,16 +1,17 @@
-# React + Vite
+#  Advanced SDE Question Tracker
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A high-performance React application designed to manage and track progress through the Strivers A2Z DSA Sheet. This project implements several advanced functionalities currently missing from standard tracking platforms.
 
-Currently, two official plugins are available:
+###  Advanced Features
+- **Undo History**: Built-in state history allowing users to undo rearrangements (Drag & Drop) via `Ctrl+Z` or a dedicated UI button.
+- **Hierarchical Search**: Real-time filtering that prunes empty topics and highlights matching text.
+- **Proportional Progress**: A three-part segmented progress bar tracking Easy, Medium, and Hard completion rates separately.
+- **Dynamic UI**: Includes "Expand/Collapse All" toggles, smooth-scroll navigation, and single-line text truncation for clean headings.
+- **Full Customization**: Ability to manually edit any data point, including problem URLs and resource links.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+###  Tech Stack
+- **React** (Vite)
+- **Zustand** (State & History Management)
+- **Dnd-kit** (Drag and Drop)
+- **Tailwind CSS** (Responsive Styling)
+- **Lucide-React** (Iconography)
