@@ -80,26 +80,33 @@ export function QuestionItem({ q, subId, topicId, onEdit, onNote, searchQuery = 
       </div>
 
       {/* Question Name Area - Uses flex-1 to take up all remaining space */}
-      <div className="flex-1 min-w-0 flex items-center gap-2">
-        {q.url && q.url !== "#" ? (
-          <div className="flex items-center gap-2 min-w-0">
-            <a 
-              href={q.url} 
-              target="_blank" 
-              rel="noreferrer" 
-              className={`text-sm font-bold truncate transition-colors ${q.isSolved ? 'text-emerald-600 dark:text-emerald-400' : 'text-blue-600 dark:text-blue-400'}`}
-            >
-              <HighlightedText text={q.name} highlight={searchQuery} />
-            </a>
-            <ExternalLink size={12} className="text-blue-400 shrink-0" />
-          </div>
-        ) : (
-          <span className="text-sm font-bold text-slate-900 dark:text-zinc-100 truncate">
-            <HighlightedText text={q.name} highlight={searchQuery} />
-            <span className="text-[10px] ml-2 px-1.5 py-0.5 bg-slate-200 dark:bg-zinc-800 rounded font-black text-slate-500">N/A</span>
-          </span>
-        )}
-      </div>
+<div className="flex-1 min-w-0 flex items-center gap-2">
+  {q.url && q.url !== "#" ? (
+    /* Wrap both text and icon inside the <a> tag */
+    <a 
+      href={q.url} 
+      target="_blank" 
+      rel="noreferrer" 
+      className={`group/link flex items-center gap-2 text-sm font-bold truncate transition-colors ${
+        q.isSolved ? 'text-emerald-600 dark:text-emerald-400' : 'text-blue-600 dark:text-blue-400'
+      }`}
+    >
+      <HighlightedText text={q.name} highlight={searchQuery} />
+      {/* Icon is now inside the link and will inherit the click behavior */}
+      <ExternalLink 
+        size={12} 
+        className="text-blue-400 shrink-0 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform" 
+      />
+    </a>
+  ) : (
+    <span className="text-sm font-bold text-slate-900 dark:text-zinc-100 truncate flex items-center gap-2">
+      <HighlightedText text={q.name} highlight={searchQuery} />
+      <span className="text-[10px] px-1.5 py-0.5 bg-slate-200 dark:bg-zinc-800 rounded font-black text-slate-500">
+        N/A
+      </span>
+    </span>
+  )}
+</div>
 
       {/* Edit/Delete Actions */}
       <div className="flex gap-2 sm:opacity-0 group-hover:opacity-100 transition-opacity ml-2 shrink-0 border-l pl-3 border-slate-100 dark:border-zinc-800">

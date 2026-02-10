@@ -83,7 +83,6 @@ export default function Sheet() {
       const filteredSubs = topic.subTopics.map(sub => ({
         ...sub,
         questions: (sub.questions || []).filter(q => 
-          // Safety fallback to empty string prevents the crash
           (q.name || "").toLowerCase().includes(query)
         )
       })).filter(sub => 
@@ -155,47 +154,52 @@ export default function Sheet() {
                   {allCollapsed ? <ChevronsDown size={14}/> : <ChevronsUp size={14}/>}
                   <span className="md:inline">{allCollapsed ? 'Expand' : 'Collapse'}</span>
                 </button>
-                <button onClick={toggleDarkMode} className="p-2.5 md:p-3 rounded-xl bg-zinc-800 text-yellow-400 shadow-lg transition-transform active:scale-95">
+                <button onClick={toggleDarkMode} className={`p-2.5 md:p-3 rounded-xl shadow-lg transition-transform active:scale-95 ${darkMode ? 'bg-zinc-800 text-yellow-400' : 'bg-white text-blue-600'}`}>
                   {darkMode ? <Sun size={18} /> : <Moon size={18} />}
                 </button>
-                <button onClick={() => setIsTopicModalOpen(true)} className="bg-blue-600 text-white px-4 md:px-6 py-2.5 md:py-3 rounded-xl font-bold active:scale-95 transition-transform flex items-center justify-center">
+                <button onClick={() => setIsTopicModalOpen(true)} className="bg-blue-600 hover:bg-blue-700 text-white px-4 md:px-6 py-2.5 md:py-3 rounded-xl font-bold active:scale-95 transition-all flex items-center justify-center shadow-lg shadow-blue-500/20">
                   <PlusCircle size={20}/>
                 </button>
               </div>
             </div>
           </div>
 
-          <div className={`mb-8 md:mb-10 p-4 md:p-6 rounded-2xl border-l-4 border-blue-600 leading-relaxed transition-all duration-500 shadow-sm ${
-            darkMode ? 'bg-zinc-900/50 text-zinc-400 border-blue-500/50' : 'bg-blue-50/50 text-slate-600'
+          {/* LIGHT COLOR QUOTE BOX */}
+          <div className={`mb-8 md:mb-10 p-4 md:p-6 rounded-2xl border-l-4 leading-relaxed transition-all duration-500 shadow-sm ${
+            darkMode 
+              ? 'bg-zinc-900/40 text-zinc-400 border-zinc-700' 
+              : 'bg-white text-slate-500 border-blue-200 shadow-slate-200/50'
           }`}>
             <p className="text-xs md:text-sm font-medium italic">
               "This course is made for people who want to learn DSA from A to Z for free in a well-organized and structured manner..."
             </p>
           </div>
           
-          <div className="w-full h-3 md:h-4 bg-slate-200 dark:bg-zinc-800 rounded-full overflow-visible shadow-inner relative flex gap-0.5">
+          {/* REFINED PROGRESS BAR */}
+          <div className="w-full h-2.5 md:h-3 bg-slate-200/50 dark:bg-zinc-900 rounded-full overflow-hidden relative flex gap-0.5">
             {[easy, medium, hard].map((stat, idx) => {
               const colors = ['emerald', 'amber', 'rose'];
               return (
-                <div key={idx} className={`h-full relative overflow-visible group cursor-help ${idx === 0 ? 'first:rounded-l-full' : ''} ${idx === 2 ? 'last:rounded-r-full' : ''}`} style={{ width: `${stat.segmentWidth}%` }}>
+                <div key={idx} className="h-full relative group cursor-help" style={{ width: `${stat.segmentWidth}%` }}>
                   <div className={`absolute inset-0 bg-${colors[idx]}-500/10`} />
-                  <div className={`h-full bg-${colors[idx]}-500 transition-all duration-700 ease-out ${idx === 0 ? 'first:rounded-l-full' : ''} ${idx === 2 ? 'last:rounded-r-full' : ''}`} style={{ width: `${stat.fillProgress}%` }} />
-                  <div className={`absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 bg-${colors[idx]}-600 text-white text-[9px] md:text-[10px] font-black rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-50 shadow-xl`}>
+                  <div className={`h-full bg-${colors[idx]}-500 transition-all duration-1000 ease-out`} style={{ width: `${stat.fillProgress}%` }} />
+                  
+                  {/* Tooltip */}
+                  <div className={`absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 bg-slate-900 text-white text-[9px] font-black rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-50`}>
                     {stat.remaining} {['EASY', 'MEDIUM', 'HARD'][idx]} LEFT
-                    <div className={`absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-${colors[idx]}-600`} />
                   </div>
                 </div>
               );
             })}
           </div>
 
-          <div className="flex flex-col sm:flex-row justify-between items-center mt-3 px-1 text-[9px] md:text-[10px] font-bold uppercase tracking-widest gap-2 sm:gap-0">
-            <div className="flex gap-3 md:gap-4">
-              <span className="text-emerald-500">E: {easy.solved}/{easy.total}</span>
-              <span className="text-amber-500">M: {medium.solved}/{medium.total}</span>
-              <span className="text-rose-500">H: {hard.solved}/{hard.total}</span>
+          <div className="flex flex-col sm:flex-row justify-between items-center mt-4 px-1 text-[10px] font-bold uppercase tracking-widest gap-2 sm:gap-0">
+            <div className="flex gap-4 md:gap-6">
+              <span className={`${darkMode ? 'text-emerald-500/80' : 'text-emerald-600'}`}>E: {easy.solved}/{easy.total}</span>
+              <span className={`${darkMode ? 'text-amber-500/80' : 'text-amber-600'}`}>M: {medium.solved}/{medium.total}</span>
+              <span className={`${darkMode ? 'text-rose-500/80' : 'text-rose-600'}`}>H: {hard.solved}/{hard.total}</span>
             </div>
-            <span className="text-blue-600 font-black">{globalPercent}% COMPLETED</span>
+            <span className="text-blue-600 font-black px-3 py-1 bg-blue-50 dark:bg-blue-900/20 rounded-lg">{globalPercent}% COMPLETED</span>
           </div>
         </header>
 
@@ -209,7 +213,7 @@ export default function Sheet() {
                 />
               ))}
               {filteredTopics.length === 0 && searchQuery.length > 0 && (
-                <div className="text-center py-20 opacity-40 font-bold uppercase tracking-widest text-sm">No results found</div>
+                <div className="text-center py-20 opacity-40 font-bold uppercase tracking-widest text-sm italic">No matching questions found</div>
               )}
             </div>
           </SortableContext>
