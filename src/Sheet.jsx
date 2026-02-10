@@ -78,13 +78,22 @@ export default function Sheet() {
   const filteredTopics = useMemo(() => {
     if (!searchQuery.trim()) return topics;
     const query = searchQuery.toLowerCase();
+
     return topics.map(topic => {
       const filteredSubs = topic.subTopics.map(sub => ({
         ...sub,
-        questions: sub.questions.filter(q => q.name.toLowerCase().includes(query))
-      })).filter(sub => sub.name.toLowerCase().includes(query) || sub.questions.length > 0);
+        questions: (sub.questions || []).filter(q => 
+          // Safety fallback to empty string prevents the crash
+          (q.name || "").toLowerCase().includes(query)
+        )
+      })).filter(sub => 
+        (sub.name || "").toLowerCase().includes(query) || (sub.questions && sub.questions.length > 0)
+      );
+
       return { ...topic, subTopics: filteredSubs };
-    }).filter(topic => topic.name.toLowerCase().includes(query) || topic.subTopics.length > 0);
+    }).filter(topic => 
+      (topic.name || "").toLowerCase().includes(query) || (topic.subTopics && topic.subTopics.length > 0)
+    );
   }, [topics, searchQuery]);
 
   const allQuestions = topics.flatMap(t => t.subTopics.flatMap(s => s.questions));
